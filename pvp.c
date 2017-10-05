@@ -86,17 +86,17 @@ int pvpgameloop(void)
 	double render_timer;
 
 	render_timer = 0.0;
-	prev_clock = SDL_GetTicks();
+	prev_clock = getticks();
 
 	if (DEBUG) {
-		frmtime = SDL_GetTicks();
+		frmtime = getticks();
 		frms = 0;
 	}
 
 	log("Entering main game loop", "%s");
 
 	while (!done) {
-		clock = SDL_GetTicks();		/* updates the clock to check the next delta time */
+		clock = getticks();		/* updates the clock to check the next delta time */
 		DT = clock - prev_clock;	/* get the current delta time for this frame */
 
 		/* call game loop function that contains user code */
@@ -125,10 +125,10 @@ int pvpgameloop(void)
 			}
 		}
 
-		render_timer += DT / 1000;
+		render_timer += DT * CUSTOM_TICK_MODIFIER;
 
 		if (DEBUG)
-			frmtime += DT / 1000;
+			frmtime += DT * CUSTOM_TICK_MODIFIER;
 
 		prev_clock = clock;
 	}

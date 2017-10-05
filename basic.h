@@ -11,6 +11,8 @@
 #define TRUE	1
 #define FALSE	0
 
+#define CUSTOM_TICK_MODIFIER	10.0
+
 #define SPR_NONE {				/* SPR_NONE */		\
 		"",			/* path to spritesheet */	\
 		NULL,			/* texture (set to NULL) */	\
