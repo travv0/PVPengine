@@ -127,8 +127,9 @@ int pvpgameloop(void)
 
 		render_timer += DT * CUSTOM_TICK_MODIFIER;
 
-		if (DEBUG)
-			frmtime += DT * CUSTOM_TICK_MODIFIER;
+		if (DEBUG) {
+			frmtime += DT / 40;
+		}
 
 		prev_clock = clock;
 	}
