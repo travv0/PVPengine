@@ -130,9 +130,16 @@ int _partition(struct objm *mgr, int l, int r)
 
 	while (i < j)
 	{
-		while (objmget(mgr, i)->y <= objmget(mgr, pivot)->y && i < r)
+		while (objmget(mgr, i)->y +
+				objmget(mgr, i)->spr.dest_rect.h / 2 <=
+				objmget(mgr, pivot)->y +
+				objmget(mgr, pivot)->spr.dest_rect.h / 2 &&
+				i < r)
 			i++;
-		while (objmget(mgr, j)->y > objmget(mgr, pivot)->y)
+		while (objmget(mgr, j)->y +
+				objmget(mgr, j)->spr.dest_rect.h / 2 >
+				objmget(mgr, pivot)->y +
+				objmget(mgr, pivot)->spr.dest_rect.h / 2)
 			j--;
 		if (i < j) {
 			t = *objmget(mgr, i);
