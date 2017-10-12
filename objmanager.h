@@ -1,7 +1,7 @@
 /* object manager to hold game objects so they can be easily looped through
  * for drawing, updating, etc. */
-#ifndef __OBJMANAGER_H
-#define __OBJMANAGER_H
+#ifndef __ENG_OBJMANAGER_H
+#define __ENG_OBJMANAGER_H
 
 #include "object.h"
 

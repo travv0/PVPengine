@@ -1,7 +1,7 @@
 /* this file handles logging.
  * logging should only be done if DEBUG is not 0 */
-#ifndef __LOG_H
-#define __LOG_H
+#ifndef __ENG_LOG_H
+#define __ENG_LOG_H
 
 #include <stdio.h>
 #include "strings.h"

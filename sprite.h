@@ -1,6 +1,6 @@
 /* this file is code for creating and animating sprites */
-#ifndef __SPRITE_H
-#define __SPRITE_H
+#ifndef __ENG_SPRITE_H
+#define __ENG_SPRITE_H
 
 #include <SDL2/SDL.h>
 #include "basic.h"

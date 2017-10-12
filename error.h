@@ -1,6 +1,6 @@
 /* this file contains all errors and a function to throw them */
-#ifndef __ERROR_H
-#define __ERROR_H
+#ifndef __ENG_ERROR_H
+#define __ENG_ERROR_H
 
 #include <SDL2/SDL.h>
 

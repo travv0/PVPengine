@@ -1,3 +1,6 @@
+#ifndef __ENG_PVP_H
+#define __ENG_PVP_H
+
 #include <stdio.h>
 #include <string.h>
 #include <SDL2/SDL.h>
@@ -14,3 +17,5 @@ int pvpinit(int debug);
 int pvpgameloop();
 
 int pvpclean();
+
+#endif

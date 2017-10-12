@@ -1,7 +1,7 @@
 /* this file is just to hold very basic stuff that will be used
  * in almost every other file */
-#ifndef __BASIC_H
-#define __BASIC_H
+#ifndef __ENG_BASIC_H
+#define __ENG_BASIC_H
 
 #include <SDL2/SDL.h>
 
