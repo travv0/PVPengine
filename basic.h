@@ -11,7 +11,7 @@
 #define TRUE	1
 #define FALSE	0
 
-#define CUSTOM_TICK_MODIFIER	10.0
+#define CUSTOM_TICK_MODIFIER	10.0	/* adjusts game speed (higher is slower */
 
 #define SPR_NONE {				/* SPR_NONE */		\
 		"",			/* path to spritesheet */	\

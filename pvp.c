@@ -125,10 +125,10 @@ int pvpgameloop(void)
 			}
 		}
 
-		render_timer += DT * CUSTOM_TICK_MODIFIER;
+		render_timer += DT / (1000/CUSTOM_TICK_MODIFIER);
 
 		if (DEBUG)
-			frmtime += DT * CUSTOM_TICK_MODIFIER;
+			frmtime += DT / (1000/CUSTOM_TICK_MODIFIER);
 
 		prev_clock = clock;
 	}

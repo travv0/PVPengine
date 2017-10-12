@@ -27,6 +27,9 @@ void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int
 /* get an object from the manager */
 struct object *objmget(struct objm *mgr, unsigned int idx);
 
+/* search manager for object with given type */
+struct object *objmfind(struct objm *mgr, int type);
+
 /* free memory allocated by object manager */
 void objmfree(struct objm *mgr);
 

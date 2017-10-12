@@ -67,6 +67,18 @@ struct object *objmget(struct objm *mgr, unsigned int idx)
 	return &mgr->objs[idx];
 }
 
+struct object *objmfind(struct objm *mgr, int type)
+{
+	int i = 0;
+	struct object *ret = NULL;
+
+	while (i < mgr->objcnt)
+		if ((ret = objmget(OBJ_MGR, i++))->type == type)
+			return ret;
+
+	return NULL;
+}
+
 void objmfree(struct objm *mgr)
 {
 	free(mgr->objs);
