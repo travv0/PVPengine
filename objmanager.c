@@ -5,6 +5,10 @@
 /* increase object manager's capacity */
 void _objmcapup(struct objm *mgr);
 
+void _quicksort(struct objm *mgr, int l, int r);
+
+int _partition(struct objm *mgr, int l, int r);
+
 void objminit(struct objm **mgr)
 {
 	*mgr = malloc(sizeof(struct objm));
@@ -62,9 +66,17 @@ void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int
 struct object *objmget(struct objm *mgr, unsigned int idx)
 {
 	if (idx >= mgr->objcnt)
-		throw_err(OBJM_IDX_OOR_WARN);
+		throw_err(OBJM_IDX_GET_OOR_WARN);
 
 	return &mgr->objs[idx];
+}
+
+void objmset(struct objm *mgr, unsigned int idx, struct object obj)
+{
+	if (idx >= mgr->objcnt)
+		throw_err(OBJM_IDX_SET_OOR_WARN);
+
+	mgr->objs[idx] = obj;
 }
 
 struct object *objmfind(struct objm *mgr, int type)
@@ -88,4 +100,63 @@ void objmfree(struct objm *mgr)
 unsigned long objmcnt(struct objm *mgr)
 {
 	return mgr->objcnt;
+}
+
+void objmsort(struct objm *mgr)
+{
+	_quicksort(mgr, 0, objmcnt(mgr) - 1);
+}
+
+void _quicksort(struct objm *mgr, int l, int r)
+{
+	int j;
+
+	if (l < r)
+	{
+		j = _partition(mgr, l, r);
+		_quicksort(mgr, l, j - 1);
+		_quicksort(mgr, j + 1, r);
+	}
+
+}
+
+int _partition(struct objm *mgr, int l, int r)
+{
+	int i, j, pivot;
+	struct object t;
+	pivot = l;
+	i = l;
+	j = r;
+
+	while (i < j)
+	{
+		while (objmget(mgr, i)->y <= objmget(mgr, pivot)->y && i < r)
+			i++;
+		while (objmget(mgr, j)->y > objmget(mgr, pivot)->y)
+			j--;
+		if (i < j) {
+			t = *objmget(mgr, i);
+			objmset(mgr, i, *objmget(mgr, j));
+			objmset(mgr, j, t);
+		}
+	}
+
+	t = *objmget(mgr, pivot);
+	objmset(mgr, pivot, *objmget(mgr, j));
+	objmset(mgr, j, t);
+
+	return j;
+}
+
+void objmprint(struct objm *mgr)
+{
+	int i;
+	struct object *obj;
+
+	printf("[ ");
+	for (i = 0; i < objmcnt(mgr); i++) {
+		obj = objmget(mgr, i);
+		printf("{%d %f} ", obj->type, obj->y);
+	}
+	printf("]\n");
 }

@@ -61,8 +61,8 @@ struct error LOG_OPEN_WARN = {
 	8,
 	WARNING
 };
-struct error OBJM_IDX_OOR_WARN = {
-	"Object manager: index out of range",
+struct error OBJM_IDX_GET_OOR_WARN = {
+	"Object manager: index out of range when getting",
 	9,
 	WARNING
 };
@@ -105,6 +105,11 @@ struct error SDL_TTF_OPEN_ERR = {
 	"Failed to open font",
 	17,
 	ERROR
+};
+struct error OBJM_IDX_SET_OOR_WARN = {
+	"Object manager: index out of range when setting",
+	18,
+	WARNING
 };
 
 /* calls the log function with the error provided,

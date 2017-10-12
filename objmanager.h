@@ -27,6 +27,9 @@ void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int
 /* get an object from the manager */
 struct object *objmget(struct objm *mgr, unsigned int idx);
 
+/* set object at index */
+void objmset(struct objm *mgr, unsigned int idx, struct object obj);
+
 /* search manager for object with given type */
 struct object *objmfind(struct objm *mgr, int type);
 
@@ -35,5 +38,11 @@ void objmfree(struct objm *mgr);
 
 /* returns count of objects in the manager */
 unsigned long objmcnt(struct objm *mgr);
+
+/* sort objects by y value for drawing */
+void objmsort(struct objm *mgr);
+
+/* print object info for objects in manager */
+void objmprint(struct objm *mgr);
 
 #endif

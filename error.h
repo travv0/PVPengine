@@ -26,7 +26,7 @@ extern struct error NO_STATE_ERR;
 extern struct error SDL_BMP_ERR;
 extern struct error SDL_TEXTURE_ERR;
 extern struct error LOG_OPEN_WARN;
-extern struct error OBJM_IDX_OOR_WARN;
+extern struct error OBJM_IDX_GET_OOR_WARN;
 extern struct error MALLOC_FAILED_ERR;
 extern struct error OBJM_NOT_INIT_ERR;
 extern struct error SDL_REND_COPY_ERR;
@@ -34,6 +34,7 @@ extern struct error SDL_IMG_INIT_ERR;
 extern struct error SDL_CONV_SURF_ERR;
 extern struct error SDL_TTF_INIT_ERR;
 extern struct error SDL_TTF_OPEN_ERR;
+extern struct error OBJM_IDX_SET_OOR_WARN;
 
 /* give an error declared above to this function
  * and it'll take care of the rest */

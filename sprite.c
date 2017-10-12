@@ -2,6 +2,7 @@
 #include <SDL2/SDL_image.h>
 
 #include <math.h>
+#include "objmanager.h"
 
 #include "log.h"
 #include "error.h"
@@ -140,6 +141,9 @@ void unloadsprites(void)
 
 void drawall(void) {
 	unsigned int i;
+
+	objmsort(OBJ_MGR);
+
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
 			animate(&objmget(OBJ_MGR, i)->spr);

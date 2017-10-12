@@ -13,6 +13,7 @@ struct object {
 	float		y;
 	float		hvel;
 	float		vvel;
+	int		solid;
 	int		(*step)(struct object *obj);
 	float		ext[256];
 };
