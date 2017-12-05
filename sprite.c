@@ -65,8 +65,18 @@ void animate(struct sprite *spr)
 	SDL_Rect draw_rect;
 	if (spr->flags & S_ANIMATING)
 		{
+			if (spr->flags & S_PINGPONG) {
+				if (spr->curr_frame <= 0) {
+					spr->flags &= ~S_REVERSE;
+					spr->curr_frame += 1;
+				}
+				else if (spr->curr_frame >= spr->frames - spr->speed) {
+					spr->flags |= S_REVERSE;
+					spr->curr_frame -= 1;
+				}
+			}
 			/* stop animating if not set to looping and animation is done */
-			if (spr->flags & S_LOOPING &&
+			if (!(spr->flags & S_LOOPING) &&
 			    (
 			     /* if sprite isn't reversing, stop at last frame */
 			     (!(spr->flags & S_REVERSE) && spr->curr_frame == spr->frames - 1) ||
