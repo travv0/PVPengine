@@ -14,7 +14,7 @@ struct object {
 	float		z;	/* for drawing objects after other objects */
 	float		hvel;
 	float		vvel;
-	int		solid;
+	int		flags;
 	int		(*step)(struct object *obj);
 	float		ext[256];
 };

@@ -4,3 +4,7 @@ typedef enum {
 	SPR_REVERSE	= 1 << 2,
 	SPR_PINGPONG	= 1 << 3
 } sprflags;
+
+typedef enum {
+	OBJ_SOLID	= 1 << 0
+} objflags;
