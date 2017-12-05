@@ -31,8 +31,8 @@ void _objmcapup(struct objm *mgr)
 			"Object manager: reallocated array to size %llu");
 }
 
-void objmadd(struct objm *mgr, struct object obj, struct sprite spr,
-		float x, float y, float z)
+int objmadd(struct objm *mgr, struct object obj, struct sprite spr,
+		float x, float y, float z, int flags)
 {
 	if (mgr == NULL) {
 		throw_err(OBJM_NOT_INIT_ERR);
@@ -57,11 +57,16 @@ void objmadd(struct objm *mgr, struct object obj, struct sprite spr,
 	obj.y = y;
 	obj.z = z;
 
+	if (flags >= 0)
+		obj.flags = flags;
+
 	mgr->objs[mgr->objcnt] = obj;
 	mgr->objs[mgr->objcnt].spr = spr;
 	mgr->objcnt++;
 
 	log(mgr->objcnt, "Object manager: contains %d objects");
+
+	return mgr->objcnt - 1;
 }
 
 struct object *objmget(struct objm *mgr, unsigned int idx)
