@@ -150,8 +150,6 @@ void drawall(void) {
 
 	objmsort(OBJ_MGR);
 
-	objmprint(OBJ_MGR);
-
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
 			animate(&objmget(OBJ_MGR, i)->spr);

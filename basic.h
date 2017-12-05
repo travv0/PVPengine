@@ -14,6 +14,7 @@
 #define CUSTOM_TICK_MODIFIER	10.0	/* adjusts game speed (higher is slower */
 
 #define SPR_NONE {				/* SPR_NONE */		\
+		-1,						\
 		"",			/* path to spritesheet */	\
 		NULL,			/* texture (set to NULL) */	\
 		1/TARGET_FRAME_RATE,	/* animation speed */		\

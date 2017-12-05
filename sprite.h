@@ -9,6 +9,7 @@ struct object;
 
 /* struct to hold details about the sprite. */
 struct sprite {
+	int		type;
 	char		*fname;
 	SDL_Texture	*texture;
 	float		speed;
