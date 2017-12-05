@@ -20,11 +20,11 @@ void _sprinit(struct sprite *spr);
 
 void anistart(struct sprite *spr, int loop)
 {
-	spr->flags |= SPR_ANIMATING;
+	spr->flags |= S_ANIMATING;
 	if (loop)
-		spr->flags |= SPR_LOOPING;
+		spr->flags |= S_LOOPING;
 	else
-		spr->flags &= ~SPR_LOOPING;
+		spr->flags &= ~S_LOOPING;
 }
 
 void anispeed(struct sprite *spr, float speed)
@@ -35,21 +35,21 @@ void anispeed(struct sprite *spr, float speed)
 void anireverse(struct sprite *spr, int reverse)
 {
 	if (reverse)
-		spr->flags |= SPR_REVERSE;
+		spr->flags |= S_REVERSE;
 	else
-		spr->flags &= ~SPR_REVERSE;
+		spr->flags &= ~S_REVERSE;
 }
 
 void anipause(struct sprite *spr)
 {
-	spr->flags &= ~SPR_ANIMATING;
+	spr->flags &= ~S_ANIMATING;
 }
 
 void anistop(struct sprite *spr)
 {
-	spr->flags &= ~SPR_ANIMATING;
+	spr->flags &= ~S_ANIMATING;
 
-	if (spr->flags & SPR_REVERSE)
+	if (spr->flags & S_REVERSE)
 		spr->curr_frame = 0;
 	else
 		spr->curr_frame = spr->frames - 1;
@@ -63,19 +63,19 @@ void aniset(struct sprite *spr, int frame)
 void animate(struct sprite *spr)
 {
 	SDL_Rect draw_rect;
-	if (spr->flags & SPR_ANIMATING)
+	if (spr->flags & S_ANIMATING)
 		{
 			/* stop animating if not set to looping and animation is done */
-			if (spr->flags & SPR_LOOPING &&
+			if (spr->flags & S_LOOPING &&
 			    (
 			     /* if sprite isn't reversing, stop at last frame */
-			     (!(spr->flags & SPR_REVERSE) && spr->curr_frame == spr->frames - 1) ||
+			     (!(spr->flags & S_REVERSE) && spr->curr_frame == spr->frames - 1) ||
 			     /* otherwise, stop at first */
-			     ((spr->flags & SPR_REVERSE) && spr->curr_frame <= 0)
+			     ((spr->flags & S_REVERSE) && spr->curr_frame <= 0)
 			     )
 			    )
 				anistop(spr);
-			else if (spr->flags & SPR_REVERSE)
+			else if (spr->flags & S_REVERSE)
 				spr->curr_frame = (spr->curr_frame <= 0 ?
 						   spr->frames - spr->speed :
 						   spr->curr_frame - spr->speed);
