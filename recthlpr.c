@@ -17,7 +17,7 @@ int chkhoob(struct object o)
 
 int chkvoob(struct object o)
 {
-	if (o.spr.hb_rect.y + o.z < 0 || o.spr.hb_rect.y + o.z + o.spr.hb_rect.h > WIN_HEIGHT)
+	if (o.spr.hb_rect.y < 0 || o.spr.hb_rect.y + o.spr.hb_rect.h > WIN_HEIGHT)
 		return 1;
 	return 0;
 }
