@@ -66,11 +66,12 @@ void animate(struct sprite *spr)
 	if (spr->flags & S_ANIMATING)
 		{
 			if (spr->flags & S_PINGPONG) {
-				if (spr->curr_frame <= 0) {
+				if (spr->flags & S_REVERSE && spr->curr_frame <= 0) {
 					spr->flags &= ~S_REVERSE;
 					spr->curr_frame += 1;
 				}
-				else if (spr->curr_frame >= spr->frames - spr->speed) {
+				else if (spr->flags & ~S_REVERSE &&
+						spr->curr_frame >= spr->frames - spr->speed) {
 					spr->flags |= S_REVERSE;
 					spr->curr_frame -= 1;
 				}
