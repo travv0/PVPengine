@@ -6,5 +6,6 @@ typedef enum {
 } sprflags;
 
 typedef enum {
-	O_SOLID	= 1 << 0
+	O_SOLID		= 1 << 0,
+	O_DEAD		= 1 << 1
 } objflags;

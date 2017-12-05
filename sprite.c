@@ -63,37 +63,36 @@ void aniset(struct sprite *spr, int frame)
 void animate(struct sprite *spr)
 {
 	SDL_Rect draw_rect;
-	if (spr->flags & S_ANIMATING)
-		{
-			if (spr->flags & S_PINGPONG) {
-				if (spr->flags & S_REVERSE && spr->curr_frame <= 0) {
-					spr->flags &= ~S_REVERSE;
-					spr->curr_frame += 1;
-				}
-				else if (spr->flags & ~S_REVERSE &&
-						spr->curr_frame >= spr->frames - spr->speed) {
-					spr->flags |= S_REVERSE;
-					spr->curr_frame -= 1;
-				}
+	if (spr->flags & S_ANIMATING) {
+		if (spr->flags & S_PINGPONG) {
+			if (spr->flags & S_REVERSE && spr->curr_frame <= 0) {
+				spr->flags &= ~S_REVERSE;
+				spr->curr_frame += 1;
 			}
-			/* stop animating if not set to looping and animation is done */
-			if (!(spr->flags & S_LOOPING) &&
-			    (
-			     /* if sprite isn't reversing, stop at last frame */
-			     (!(spr->flags & S_REVERSE) && spr->curr_frame == spr->frames - 1) ||
-			     /* otherwise, stop at first */
-			     ((spr->flags & S_REVERSE) && spr->curr_frame <= 0)
-			     )
-			    )
-				anistop(spr);
-			else if (spr->flags & S_REVERSE)
-				spr->curr_frame = (spr->curr_frame <= 0 ?
-						   spr->frames - spr->speed :
-						   spr->curr_frame - spr->speed);
-			else
-				spr->curr_frame = fmod(spr->curr_frame + spr->speed,
-						       (float)spr->frames);
+			else if (spr->flags & ~S_REVERSE &&
+					spr->curr_frame >= spr->frames - spr->speed) {
+				spr->flags |= S_REVERSE;
+				spr->curr_frame -= 1;
+			}
 		}
+		/* stop animating if not set to looping and animation is done */
+		if (!(spr->flags & S_LOOPING) &&
+				(
+				 /* if sprite isn't reversing, stop at last frame */
+				 (!(spr->flags & S_REVERSE) && spr->curr_frame == spr->frames - 1) ||
+				 /* otherwise, stop at first */
+				 ((spr->flags & S_REVERSE) && spr->curr_frame <= 0)
+				)
+		   )
+			anistop(spr);
+		else if (spr->flags & S_REVERSE)
+			spr->curr_frame = (spr->curr_frame <= 0 ?
+					spr->frames - spr->speed :
+					spr->curr_frame - spr->speed);
+		else
+			spr->curr_frame = fmod(spr->curr_frame + spr->speed,
+					(float)spr->frames);
+	}
 
 	spr->source_rect.x = spr->base_rect.x + spr->source_rect.w *
 		(int)spr->curr_frame;
@@ -105,7 +104,7 @@ void animate(struct sprite *spr)
 	draw_rect.h = spr->dest_rect.h;
 
 	if (SDL_RenderCopy(RENDERER, spr->texture,
-			   &spr->source_rect, &draw_rect) != 0) {
+				&spr->source_rect, &draw_rect) != 0) {
 		throw_err(SDL_REND_COPY_ERR);
 	}
 
@@ -114,7 +113,7 @@ void animate(struct sprite *spr)
 		static SDL_Surface *hitboxsurf;
 		static SDL_Texture *hitboxtex;
 		if (!hitboxsurf)
-			 hitboxsurf = IMG_Load(HITBOX_PATH);
+			hitboxsurf = IMG_Load(HITBOX_PATH);
 		if (!hitboxtex && hitboxsurf)
 			hitboxtex = SDL_CreateTextureFromSurface(RENDERER, hitboxsurf);
 		if (SDL_RenderCopy(RENDERER, hitboxtex,
