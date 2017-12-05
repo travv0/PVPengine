@@ -2,14 +2,15 @@
 #define __ENG_RECTHLPR_H
 
 #include <SDL2/SDL.h>
+#include "object.h"
 
 /* check if rectangle is outside of window */
-int chkoob(SDL_Rect r);
+int chkoob(struct object o);
 
 /* check if rectangle is outside of window, horizontally */
-int chkhoob(SDL_Rect r);
+int chkhoob(struct object o);
 
 /* check if rectangle is outside of window, vertically */
-int chkvoob(SDL_Rect r);
+int chkvoob(struct object o);
 
 #endif

@@ -11,6 +11,7 @@ struct object {
 	struct sprite	spr;
 	float		x;
 	float		y;
+	float		z;	/* for drawing objects after other objects */
 	float		hvel;
 	float		vvel;
 	int		solid;

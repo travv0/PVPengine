@@ -22,7 +22,8 @@ struct objm {
 void objminit(struct objm **mgr);
 
 /* add an object to the manager */
-void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int y);
+void objmadd(struct objm *mgr, struct object obj, struct sprite spr,
+		float x, float y, float z);
 
 /* get an object from the manager */
 struct object *objmget(struct objm *mgr, unsigned int idx);

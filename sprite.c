@@ -9,6 +9,8 @@
 #include "strings.h"
 #include "object.h"
 #include "str.h"
+#include "flags.h"
+#include "../data.h"
 
 /* load a sprite */
 void _sprload(struct sprite *spr, char *fname);
@@ -18,8 +20,11 @@ void _sprinit(struct sprite *spr);
 
 void anistart(struct sprite *spr, int loop)
 {
-	spr->animating = TRUE;
-	spr->looping = loop;
+	spr->flags |= SPR_ANIMATING;
+	if (loop)
+		spr->flags |= SPR_LOOPING;
+	else
+		spr->flags &= ~SPR_LOOPING;
 }
 
 void anispeed(struct sprite *spr, float speed)
@@ -29,19 +34,22 @@ void anispeed(struct sprite *spr, float speed)
 
 void anireverse(struct sprite *spr, int reverse)
 {
-	spr->reverse = reverse;
+	if (reverse)
+		spr->flags |= SPR_REVERSE;
+	else
+		spr->flags &= ~SPR_REVERSE;
 }
 
 void anipause(struct sprite *spr)
 {
-	spr->animating = FALSE;
+	spr->flags &= ~SPR_ANIMATING;
 }
 
 void anistop(struct sprite *spr)
 {
-	spr->animating = FALSE;
+	spr->flags &= ~SPR_ANIMATING;
 
-	if (spr->reverse == FALSE)
+	if (spr->flags & SPR_REVERSE)
 		spr->curr_frame = 0;
 	else
 		spr->curr_frame = spr->frames - 1;
@@ -55,19 +63,19 @@ void aniset(struct sprite *spr, int frame)
 void animate(struct sprite *spr)
 {
 	SDL_Rect draw_rect;
-	if (spr->animating == TRUE)
+	if (spr->flags & SPR_ANIMATING)
 		{
 			/* stop animating if not set to looping and animation is done */
-			if (spr->looping == FALSE &&
+			if (spr->flags & SPR_LOOPING &&
 			    (
 			     /* if sprite isn't reversing, stop at last frame */
-			     (!spr->reverse && spr->curr_frame == spr->frames - 1) ||
+			     (!(spr->flags & SPR_REVERSE) && spr->curr_frame == spr->frames - 1) ||
 			     /* otherwise, stop at first */
-			     (spr->reverse && spr->curr_frame <= 0)
+			     ((spr->flags & SPR_REVERSE) && spr->curr_frame <= 0)
 			     )
 			    )
 				anistop(spr);
-			else if (spr->reverse)
+			else if (spr->flags & SPR_REVERSE)
 				spr->curr_frame = (spr->curr_frame <= 0 ?
 						   spr->frames - spr->speed :
 						   spr->curr_frame - spr->speed);
@@ -99,7 +107,7 @@ void animate(struct sprite *spr)
 		if (!hitboxtex && hitboxsurf)
 			hitboxtex = SDL_CreateTextureFromSurface(RENDERER, hitboxsurf);
 		if (SDL_RenderCopy(RENDERER, hitboxtex,
-			   		NULL, &spr->hb_rect) != 0) {
+					NULL, &spr->hb_rect) != 0) {
 			throw_err(SDL_REND_COPY_ERR);
 		}
 	}
@@ -108,8 +116,8 @@ void animate(struct sprite *spr)
 void initsprites(void)
 {
 	unsigned int i;
-	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
-		_sprload(&objmget(OBJ_MGR, i)->spr, objmget(OBJ_MGR, i)->spr.fname);
+	for (i = 0; i < NUMOFSPRITES; ++i) {
+		_sprload(&SPRITES[i], SPRITES[i].fname);
 	}
 }
 
@@ -117,19 +125,17 @@ void _sprload(struct sprite *spr, char *fname)
 {
 	SDL_Surface *surface = NULL;
 
-	if (spr->load) {
-		surface = IMG_Load(fname);
+	surface = IMG_Load(fname);
 
-		if (surface == NULL) {
-			throw_err(SDL_BMP_ERR);
-		}
-
-		if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
-								 surface)) == NULL)
-			throw_err(SDL_TEXTURE_ERR);
-
-		SDL_FreeSurface(surface);
+	if (surface == NULL) {
+		throw_err(SDL_BMP_ERR);
 	}
+
+	if ((spr->texture = SDL_CreateTextureFromSurface(RENDERER,
+					surface)) == NULL)
+		throw_err(SDL_TEXTURE_ERR);
+
+	SDL_FreeSurface(surface);
 }
 
 void unloadsprites(void)
@@ -144,6 +150,8 @@ void drawall(void) {
 
 	objmsort(OBJ_MGR);
 
+	objmprint(OBJ_MGR);
+
 	for (i = 0; i < objmcnt(OBJ_MGR); ++i) {
 		if (objmget(OBJ_MGR, i)->spr.texture != NULL)
 			animate(&objmget(OBJ_MGR, i)->spr);
@@ -152,9 +160,7 @@ void drawall(void) {
 	SDL_RenderPresent(RENDERER);
 }
 
-/* FIXME: figure out how to not call initsprites() every time */
 void sprchange(struct object *obj, struct sprite spr)
 {
 	obj->spr = spr;
-	initsprites();
 }

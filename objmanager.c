@@ -31,7 +31,8 @@ void _objmcapup(struct objm *mgr)
 			"Object manager: reallocated array to size %llu");
 }
 
-void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int y)
+void objmadd(struct objm *mgr, struct object obj, struct sprite spr,
+		float x, float y, float z)
 {
 	if (mgr == NULL) {
 		throw_err(OBJM_NOT_INIT_ERR);
@@ -54,10 +55,10 @@ void objmadd(struct objm *mgr, struct object obj, struct sprite *spr, int x, int
 
 	obj.x = x;
 	obj.y = y;
+	obj.z = z;
 
 	mgr->objs[mgr->objcnt] = obj;
-	if (spr)
-		mgr->objs[mgr->objcnt].spr = *spr;
+	mgr->objs[mgr->objcnt].spr = spr;
 	mgr->objcnt++;
 
 	log(mgr->objcnt, "Object manager: contains %d objects");
@@ -130,15 +131,15 @@ int _partition(struct objm *mgr, int l, int r)
 
 	while (i < j)
 	{
-		while (objmget(mgr, i)->y +
+		while (objmget(mgr, i)->y - objmget(mgr, i)->z +
 				objmget(mgr, i)->spr.dest_rect.h / 2 <=
-				objmget(mgr, pivot)->y +
+				objmget(mgr, pivot)->y - objmget(mgr, pivot)->z +
 				objmget(mgr, pivot)->spr.dest_rect.h / 2 &&
 				i < r)
 			i++;
-		while (objmget(mgr, j)->y +
+		while (objmget(mgr, j)->y - objmget(mgr, j)->z +
 				objmget(mgr, j)->spr.dest_rect.h / 2 >
-				objmget(mgr, pivot)->y +
+				objmget(mgr, pivot)->y - objmget(mgr, pivot)->z +
 				objmget(mgr, pivot)->spr.dest_rect.h / 2)
 			j--;
 		if (i < j) {
@@ -163,7 +164,7 @@ void objmprint(struct objm *mgr)
 	printf("[ ");
 	for (i = 0; i < objmcnt(mgr); i++) {
 		obj = objmget(mgr, i);
-		printf("{%d %f} ", obj->type, obj->y);
+		printf("{%d %f} ", obj->type, obj->y - obj->z);
 	}
 	printf("]\n");
 }

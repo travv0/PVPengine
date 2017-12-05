@@ -19,10 +19,7 @@ struct sprite {
 	SDL_Rect	hb_rect;	/* hitbox rectangle */
 	int		frames;
 	float		curr_frame;
-	int		animating;
-	int		looping;
-	int		reverse;
-	int		load;
+	int		flags;
 };
 
 /* this holds the default info for a new sprite. */

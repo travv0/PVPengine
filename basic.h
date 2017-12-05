@@ -24,10 +24,7 @@
 		{0, 0, 0, 0},		/* hitbox of sprite */		\
 		0,			/* number of frames in animation */ \
 		0,			/* starting frame */		\
-		FALSE,			/* whether sprite should animate */ \
-		FALSE,			/* whether sprite should loop */ \
-		FALSE,			/* whether animation should play backwards */ \
-		FALSE			/* whether the sprite should currently be loaded */ \
+		0			/* flags */			\
 	}
 
 extern int DEBUG;	/* whether or not to log things */
