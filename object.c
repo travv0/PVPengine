@@ -20,11 +20,11 @@ void updateall(void)
 		obj->y += obj->vvel * DT;
 
 		obj->spr.dest_rect.x = obj->x;
-		obj->spr.dest_rect.y = obj->y - obj->z;
+		obj->spr.dest_rect.y = obj->y;
 
 		/* update hitbox position */
 		draw_rect.x = obj->spr.dest_rect.x - obj->spr.dest_rect.w / 2.0;
-		draw_rect.y = obj->spr.dest_rect.y - obj->spr.dest_rect.h / 2.0 + obj->z;
+		draw_rect.y = obj->spr.dest_rect.y - obj->spr.dest_rect.h / 2.0;
 		draw_rect.w = obj->spr.dest_rect.w;
 		draw_rect.h = obj->spr.dest_rect.h;
 

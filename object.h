@@ -15,7 +15,6 @@ struct object {
 	int		leftspr;
 	float		x;
 	float		y;
-	float		z;	/* for drawing objects after other objects */
 	float		hvel;
 	float		vvel;
 	int		flags;

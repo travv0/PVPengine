@@ -55,7 +55,6 @@ int objmadd(struct objm *mgr, struct object obj, struct sprite spr,
 
 	obj.x = x;
 	obj.y = y;
-	obj.z = z;
 
 	if (flags >= 0)
 		obj.flags = flags;
