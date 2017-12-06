@@ -17,6 +17,7 @@ struct object {
 	float		y;
 	float		hvel;
 	float		vvel;
+	float		speed;
 	int		flags;
 	int		(*step)(struct object *obj);
 	float		ext[256];

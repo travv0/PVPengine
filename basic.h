@@ -17,7 +17,7 @@
 		-1,						\
 		"",			/* path to spritesheet */	\
 		NULL,			/* texture (set to NULL) */	\
-		1/TARGET_FRAME_RATE,	/* animation speed */		\
+		1,	/* animation speed */		\
 		{0, 0, 0, 0},		/* base rectangle (first frame of animation) */ \
 		{0, 0, 0, 0},		/* source rectange */		\
 		{0, 0, 0, 0},		/* destination rectangle of sprite */ \

@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "pvp.h"
 #include "error.h"
 #include "log.h"
 #include "str.h"
@@ -82,16 +83,13 @@ int pvpgameloop(void)
 
 	double clock, prev_clock;	/* last time sample in seconds */
 	double frmtime;			/* timer used for when to show updated fps */
-	int frms;			/* frame counter for fps display */
 	double render_timer;
 
 	render_timer = 0.0;
 	prev_clock = getticks();
 
-	if (DEBUG) {
-		frmtime = getticks();
-		frms = 0;
-	}
+	frmtime = getticks();
+	frms = 0;
 
 	log("Entering main game loop", "%s");
 
@@ -105,9 +103,8 @@ int pvpgameloop(void)
 
 		/* checks if the frame is ready to render */
 		if (render_timer >= (1/TARGET_FRAME_RATE)) {
-			if (DEBUG)
-				/* increment counter for framerate */
-				frms++;
+			/* increment counter for framerate */
+			frms++;
 
 			drawall();
 
@@ -119,10 +116,12 @@ int pvpgameloop(void)
 		if (DEBUG) {
 			if (frmtime >= 1) {
 				log((uintptr_t) frms, "FPS: %d");
-				frms = 0;
-				/* decrement frmtime instead of setting to 0 */
-				frmtime--;
 			}
+		}
+		if (frmtime >= 1) {
+			frms = 0;
+			/* decrement frmtime instead of setting to 0 */
+			frmtime--;
 		}
 
 		render_timer += DT / (1000/CUSTOM_TICK_MODIFIER);

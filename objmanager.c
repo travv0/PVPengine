@@ -89,8 +89,10 @@ int objmfind(struct objm *mgr, int type)
 	int i = 0;
 
 	while (i < mgr->objcnt)
-		if (objmget(OBJ_MGR, i++)->type == type)
+		if (objmget(OBJ_MGR, i)->type == type)
 			return i;
+		else
+			i++;
 
 	return -1;
 }

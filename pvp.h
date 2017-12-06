@@ -12,6 +12,8 @@
 #include "basic.h"
 #include "objmanager.h"
 
+static int frms;			/* frame counter for fps display */
+
 int pvpinit(int debug);
 
 int pvpgameloop();
