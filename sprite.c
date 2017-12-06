@@ -127,7 +127,8 @@ void initsprites(void)
 {
 	unsigned int i;
 	for (i = 0; i < NUMOFSPRITES; ++i) {
-		_sprload(&SPRITES[i], SPRITES[i].fname);
+		if (SPRITES[i].fname)
+			_sprload(&SPRITES[i], SPRITES[i].fname);
 	}
 }
 

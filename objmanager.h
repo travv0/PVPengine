@@ -32,7 +32,7 @@ struct object *objmget(struct objm *mgr, unsigned int idx);
 void objmset(struct objm *mgr, unsigned int idx, struct object obj);
 
 /* search manager for object with given type */
-struct object *objmfind(struct objm *mgr, int type);
+int objmfind(struct objm *mgr, int type);
 
 /* free memory allocated by object manager */
 void objmfree(struct objm *mgr);

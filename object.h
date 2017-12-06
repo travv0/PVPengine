@@ -9,6 +9,10 @@
 struct object {
 	int		type;
 	struct sprite	spr;
+	int		upspr;
+	int		rightspr;
+	int		downspr;
+	int		leftspr;
 	float		x;
 	float		y;
 	float		z;	/* for drawing objects after other objects */

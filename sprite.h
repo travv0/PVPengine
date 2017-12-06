@@ -20,6 +20,7 @@ struct sprite {
 	SDL_Rect	hb_rect;	/* hitbox rectangle */
 	int		frames;
 	float		curr_frame;
+	int		standframe;
 	int		flags;
 };
 

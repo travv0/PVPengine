@@ -85,16 +85,15 @@ void objmset(struct objm *mgr, unsigned int idx, struct object obj)
 	mgr->objs[idx] = obj;
 }
 
-struct object *objmfind(struct objm *mgr, int type)
+int objmfind(struct objm *mgr, int type)
 {
 	int i = 0;
-	struct object *ret = NULL;
 
 	while (i < mgr->objcnt)
-		if ((ret = objmget(OBJ_MGR, i++))->type == type)
-			return ret;
+		if (objmget(OBJ_MGR, i++)->type == type)
+			return i;
 
-	return NULL;
+	return -1;
 }
 
 void objmfree(struct objm *mgr)
